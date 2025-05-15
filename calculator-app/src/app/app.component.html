@@ -2,5 +2,4 @@
 <p>Initial Expression Test: for 1+2+sin(24+cos(23)): {{ initialExpressionTest }}</p>
 <app-calculator (expressionChange)="onExpressionChange($event)"></app-calculator>
 <p *ngIf="error" class="error">{{ error }}</p>
-
-<app-history [history]="history" [error]="error"></app-history>
+<app-result-history [history]="history" [error]="error"></app-result-history>

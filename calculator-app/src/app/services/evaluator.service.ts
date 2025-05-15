@@ -5,7 +5,7 @@ import { evaluate } from '@suprnation/evaluator';
   providedIn: 'root',
 })
 export class EvaluatorService {
-  evaluateExpression(expression: string): number {
+  evaluateExpression(expression: string): number | null {
     if (!expression.trim()) {
       throw new Error('Expression cannot be empty');
     }
@@ -15,7 +15,7 @@ export class EvaluatorService {
     if (this.isEvaluationSuccess(result)) {
       return result.value;
     } else if (this.isEvaluationFailure(result)) {
-      throw new Error(result.error || 'Invalid expression');
+      return null;
     } else {
       throw new Error('Unexpected evaluation result');
     }

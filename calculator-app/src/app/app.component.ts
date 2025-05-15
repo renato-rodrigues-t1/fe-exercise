@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalculatorComponent } from './components/calculator/calculator.component';
-import { HistoryComponent } from './components/history/history.component';
+import { HistoryComponent } from './components/result-history/result-history.component';
 import { EvaluatorService } from './services/evaluator.service';
 import { bootstrapApplication } from '@angular/platform-browser';
 
@@ -19,7 +19,7 @@ export class App {
   currentExpression: string = '';
   result: number | null = null;
   error: string | null = null;
-  history: { expression: string, result: number }[] = [];
+  history: { expression: string, result: number | null }[] = [];
 
   constructor(private evaluator: EvaluatorService) {
 
@@ -33,6 +33,9 @@ export class App {
     this.reset();
     try {
       const result = this.evaluator.evaluateExpression(expression);
+      if (!result) {
+        this.error = "Expression Invalid"
+      }
       this.result = result;
       this.updateHistory(expression, result);
     } catch (err: any) {
@@ -45,7 +48,7 @@ export class App {
     this.error = null;
   }
 
-  private updateHistory(expression: string, result: number) {
+  private updateHistory(expression: string, result: number | null) {
     // Check if the current expression is already in history (avoid duplicates)
     if (this.history.length === 0 || this.history[0].expression !== expression) {
       this.history.unshift({ expression, result });
@@ -57,7 +60,7 @@ export class App {
     }
   }
 
-  get historyWithoutCurrent(): { expression: string, result: number }[] {
+  get historyWithoutCurrent(): { expression: string, result: number | null }[] {
     // History excluding the current result
     return this.history.length > 1 ? this.history.slice(1, 6) : [];
   }
