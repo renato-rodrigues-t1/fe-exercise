@@ -3,4 +3,4 @@
 <app-calculator (expressionChange)="onExpressionChange($event)"></app-calculator>
 <p *ngIf="error" class="error">{{ error }}</p>
 
-<app-history [history]="history"></app-history>
+<app-history [history]="history" [error]="error"></app-history>

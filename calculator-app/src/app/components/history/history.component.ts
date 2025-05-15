@@ -11,4 +11,6 @@ import { Component, Input } from '@angular/core';
 
 export class HistoryComponent {
   @Input() history: { expression: string, result: number }[] = [];
+  @Input() error: string | null = null;
+
 }
