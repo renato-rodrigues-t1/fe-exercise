@@ -1,3 +1,7 @@
+#results {
+  text-align: center;
+}
+
 h3 {
   text-align: center;
 }
@@ -6,6 +10,5 @@ ul {
   padding: 0;
 }
 li {
-  text-align: center;
   margin: 5px 0;
 }

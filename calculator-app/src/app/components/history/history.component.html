@@ -1,4 +1,19 @@
-<h3>History (Last 5)</h3>
-<ul>
-  <li *ngFor="let item of history">{{ item.expression }} = {{ item.result }}</li>
-</ul>
+<!-- First History Item Separately -->
+<div id="results">
+  <p *ngIf="history.length > 0">
+    <span
+      >Current Expression: <strong>{{ history[0].expression }}</strong> Current Result: <strong>{{ history[0].result }}</strong></span
+    >
+  </p>
+
+  <h3>History (Last 5)</h3>
+  <!-- Loop Through the Remaining History -->
+  <ul>
+    <li *ngFor="let item of history.slice(1)">
+      {{ item.expression }} = {{ item.result }}
+      <span
+        >Expression: <strong>{{ item.expression }}</strong> Result: <strong>{{ item.result }}</strong></span
+      >
+    </li>
+  </ul>
+</div>

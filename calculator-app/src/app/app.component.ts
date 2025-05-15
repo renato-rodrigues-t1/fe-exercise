@@ -16,6 +16,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 
 export class App {
   initialExpressionTest = this.evaluator.evaluateExpression("1+2+sin(24+cos(23))");
+  currentExpression: string = '';
   result: number | null = null;
   error: string | null = null;
   history: { expression: string, result: number }[] = [];
@@ -23,8 +24,8 @@ export class App {
   constructor(private evaluator: EvaluatorService) {
 
   }
-
-  onExpressionChange(expression: any) {
+  onExpressionChange(expression: string) {
+    this.currentExpression = expression;
     this.evaluateExpression(expression);
   }
 
@@ -33,7 +34,7 @@ export class App {
     try {
       const result = this.evaluator.evaluateExpression(expression);
       this.result = result;
-      this.addToHistory(expression, result);
+      this.updateHistory(expression, result);
     } catch (err: any) {
       this.error = err.message;
     }
@@ -44,11 +45,21 @@ export class App {
     this.error = null;
   }
 
-  private addToHistory(expression: string, result: number) {
-    this.history.unshift({ expression, result });
-    if (this.history.length > 5) {
-      this.history.pop();
+  private updateHistory(expression: string, result: number) {
+    // Check if the current expression is already in history (avoid duplicates)
+    if (this.history.length === 0 || this.history[0].expression !== expression) {
+      this.history.unshift({ expression, result });
+
+      // Ensure the history is limited to the last 5 excluding the current which is already being shown under
+      if (this.history.length > 6) {
+        this.history = this.history.slice(0, 6);
+      }
     }
+  }
+
+  get historyWithoutCurrent(): { expression: string, result: number }[] {
+    // History excluding the current result
+    return this.history.length > 1 ? this.history.slice(1, 6) : [];
   }
 }
 
