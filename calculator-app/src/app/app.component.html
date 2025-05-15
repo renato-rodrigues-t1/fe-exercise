@@ -1,4 +1,7 @@
-<div class="app-container">
-  <h1>Calculator</h1>
-  <app-calculator></app-calculator>
-</div>
+<h1>Expression Test</h1>
+<app-calculator (expressionChange)="onExpressionChange($event)"></app-calculator>
+<p *ngIf="error" class="error">{{ error }}</p>
+<p *ngIf="result !== null">Result: {{ result }}</p>
+<app-history [history]="history"></app-history>
+
+<p>Initial Expression Test: {{ initialExpressionTest }}</p>

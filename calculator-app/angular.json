@@ -25,7 +25,7 @@
           "options": {
             "outputPath": "dist/calculator-app",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "main": "src/app/app.component.ts",
             "polyfills": [
               "zone.js"
             ],
